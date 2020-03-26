@@ -17,7 +17,6 @@
         app:search_padding_bottom="10dp"
         app:search_padding_start="30dp"
         app:search_padding_top="10dp"
-        app:search_view_background="@drawable/my_search_shape"
         app:text_size="8sp" />
 
 </LinearLayout>
