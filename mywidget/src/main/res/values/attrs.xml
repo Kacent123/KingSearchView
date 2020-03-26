@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="KSearchView">
+
+        <attr name="hint_text" format="string" />
+        <attr name="icon_res" format="reference" />
+        <attr name="icon_padding" format="dimension" />
+        <attr name="text_size" format="dimension" />
+        <attr name="icon_padding_top" format="dimension" />
+        <attr name="icon_padding_bottom" format="dimension" />
+        <attr name="icon_padding_start" format="dimension" />
+        <attr name="icon_padding_end" format="dimension" />
+        <attr name="search_view_background" format="reference" />
+        <attr name="search_padding" format="dimension"/>
+        <attr name="search_padding_top" format="dimension"/>
+        <attr name="search_padding_bottom" format="dimension"/>
+        <attr name="search_padding_start" format="dimension"/>
+        <attr name="search_padding_end" format="dimension"/>
+    </declare-styleable>
+</resources>

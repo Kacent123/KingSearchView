@@ -1,0 +1,3 @@
+rootProject.name='SearchView'
+include ':app'
+include ':mywidget'
