@@ -162,6 +162,9 @@ class KingSearchView(
     fun setTextSize(size: Float) {
         editText.textSize = size
     }
+    fun getText():String{
+        return editText.text.toString()
+    }
 
     //设置hint
     fun setHint(text: String) {
