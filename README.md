@@ -9,7 +9,7 @@
 # 布局示例代码
 
 ```xml
- <com.kacent.widget.view.KSearchView
+ <com.kacent.widget.view.KingSearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,9 +35,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val searchView = findViewById<KSearchView>(R.id.search_view)
-        searchView.setQueryListener(object : KSearchView.OnSearchListener {
-            override fun onSearch(value: String) {
+        val searchView = findViewById<KingSearchView>(R.id.search_view)
+        searchView.setQueryListener(object : KingSearchView.OnQueryListener {
+            override fun onQuery(value: String) {
                 if (TextUtils.isEmpty(value)) {
                     Toast.makeText(this@MainActivity, "没有输入相关搜索内容", Toast.LENGTH_SHORT).show()
                 }
@@ -46,5 +46,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 }
+
 
 ```
