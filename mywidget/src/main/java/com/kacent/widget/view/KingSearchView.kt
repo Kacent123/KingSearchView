@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi
 import com.kacent.widget.R
 import com.kacent.widget.view.utils.AnimationUtils
 
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class KingSearchView(
     context: Context?,
     attrs: AttributeSet?,
@@ -36,7 +37,7 @@ class KingSearchView(
     init {
         orientation = VERTICAL
         gravity = Gravity.CENTER
-        LayoutInflater.from(context).inflate(R.layout.search_layout, this, true)
+        LayoutInflater.from(context).inflate(R.layout.search_layout, this, false)
         editText = findViewById(R.id.search_edit)
         icon = findViewById(R.id.icon)
         cleanBtn=findViewById(R.id.clean_btn)
