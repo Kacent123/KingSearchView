@@ -7,11 +7,13 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.*
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.getSystemService
 import com.kacent.widget.R
 import com.kacent.widget.view.utils.AnimationUtils
 
@@ -32,15 +34,15 @@ class KingSearchView(
 
     private var editText: EditText
     private var icon: ImageView
-    private var cleanBtn:ImageView
+    private var cleanBtn: ImageView
 
     init {
         orientation = VERTICAL
-        gravity = Gravity.CENTER
+        gravity = Gravity.CENTER_VERTICAL
         LayoutInflater.from(context).inflate(R.layout.search_layout, this, true)
         editText = findViewById(R.id.search_edit)
         icon = findViewById(R.id.icon)
-        cleanBtn=findViewById(R.id.clean_btn)
+        cleanBtn = findViewById(R.id.clean_btn)
         AnimationUtils.addLayoutTransition(cleanBtn.rootView as ViewGroup)
         val a = context?.obtainStyledAttributes(attrs, R.styleable.KingSearchView)
         a?.getString(R.styleable.KingSearchView_hint_text)?.let { setHint(it) }
@@ -49,40 +51,48 @@ class KingSearchView(
         a?.getDimension(R.styleable.KingSearchView_text_size, 13f)?.let { setTextSize(it) }
         a?.getDimensionPixelOffset(R.styleable.KingSearchView_icon_padding, 0)
             ?.let {
-                if (it==0)
+                if (it == 0)
                     return@let
-                setIconPadding(it, it, it, it) }
+                setIconPadding(it, it, it, it)
+            }
         a?.getDimensionPixelOffset(R.styleable.KingSearchView_icon_padding_top, 0)
             ?.let {
-                if (it==0)
+                if (it == 0)
                     return@let
-                setIconPadding(icon.paddingLeft, it, icon.paddingRight, icon.paddingBottom) }
+                setIconPadding(icon.paddingLeft, it, icon.paddingRight, icon.paddingBottom)
+            }
         a?.getDimensionPixelOffset(R.styleable.KingSearchView_icon_padding_bottom, 0)
             ?.let {
-                if (it==0)
+                if (it == 0)
                     return@let
-                setIconPadding(icon.paddingLeft, icon.paddingTop, icon.paddingRight, it) }
+                setIconPadding(icon.paddingLeft, icon.paddingTop, icon.paddingRight, it)
+            }
         a?.getDimensionPixelOffset(R.styleable.KingSearchView_icon_padding_start, 0)
             ?.let {
-                if (it==0)
+                if (it == 0)
                     return@let
-                setIconPadding(it, icon.paddingTop, icon.paddingRight, icon.paddingBottom) }
+                setIconPadding(it, icon.paddingTop, icon.paddingRight, icon.paddingBottom)
+            }
         a?.getDimensionPixelOffset(R.styleable.KingSearchView_icon_padding_end, 0)
             ?.let {
-                if (it==0)
+                if (it == 0)
                     return@let
-                setIconPadding(icon.paddingLeft, icon.paddingTop, it, icon.paddingBottom) }
+                setIconPadding(icon.paddingLeft, icon.paddingTop, it, icon.paddingBottom)
+            }
 
         a?.getResourceId(R.styleable.KingSearchView_search_view_background, R.drawable.search_shape)
             ?.let { setSearchViewBackground(it) }
+        a?.getResourceId(R.styleable.KingSearchView_clear_icon_res, R.drawable.clean_circle)
+            ?.let { setClearIcon(it) }
         a?.getDimensionPixelOffset(R.styleable.KingSearchView_search_padding, 0)
 
             ?.let {
-                if (it==0)
+                if (it == 0)
                     return@let
-                setSearchViewPadding(it, it, it, it) }
+                setSearchViewPadding(it, it, it, it)
+            }
         a?.getDimensionPixelOffset(R.styleable.KingSearchView_search_padding_top, 0)?.let {
-            if (it==0)
+            if (it == 0)
                 return@let
             setSearchViewPadding(
                 editText.paddingLeft,
@@ -92,7 +102,7 @@ class KingSearchView(
             )
         }
         a?.getDimensionPixelOffset(R.styleable.KingSearchView_search_padding_bottom, 0)?.let {
-            if (it==0)
+            if (it == 0)
                 return@let
             setSearchViewPadding(
                 editText.paddingLeft,
@@ -102,7 +112,7 @@ class KingSearchView(
             )
         }
         a?.getDimensionPixelOffset(R.styleable.KingSearchView_search_padding_start, 0)?.let {
-            if (it==0)
+            if (it == 0)
                 return@let
             setSearchViewPadding(
                 it,
@@ -112,7 +122,7 @@ class KingSearchView(
             )
         }
         a?.getDimensionPixelOffset(R.styleable.KingSearchView_search_padding_end, 0)?.let {
-            if (it==0)
+            if (it == 0)
                 return@let
             setSearchViewPadding(
                 editText.paddingLeft,
@@ -125,7 +135,7 @@ class KingSearchView(
         cleanBtn.setOnClickListener {
             editText.setText("")
         }
-        editText.addTextChangedListener(object:TextWatcher{
+        editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -134,10 +144,10 @@ class KingSearchView(
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val toString = s.toString()
-                if (toString.isNotEmpty()){
-                    cleanBtn.visibility= View.VISIBLE
-                }else{
-                    cleanBtn.visibility=View.GONE
+                if (toString.isNotEmpty()) {
+                    cleanBtn.visibility = View.VISIBLE
+                } else {
+                    cleanBtn.visibility = View.GONE
                 }
             }
         })
@@ -153,6 +163,11 @@ class KingSearchView(
         icon.setImageResource(drawableRes)
     }
 
+    //设置clearIcon
+    fun setClearIcon(drawableRes: Int) {
+        cleanBtn.setImageResource(drawableRes)
+    }
+
     //设置icon位置
     @RequiresApi(Build.VERSION_CODES.M)
     fun setIconGravity(gravity: Int) {
@@ -163,7 +178,8 @@ class KingSearchView(
     fun setTextSize(size: Float) {
         editText.textSize = size
     }
-    fun getText():String{
+
+    fun getText(): String {
         return editText.text.toString()
     }
 
@@ -181,6 +197,16 @@ class KingSearchView(
         editText.setPadding(left, top, right, bottom)
     }
 
+    private var onClearTextListener: OnClearTextListener? = null
+    fun setOnClearTextListener(listener: OnClearTextListener){
+        onClearTextListener = listener
+
+    }
+    interface OnClearTextListener {
+        fun onClear()
+
+    }
+
     interface OnQueryListener {
         fun onQuery(value: String)
     }
@@ -192,6 +218,7 @@ class KingSearchView(
         editText.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    hideKeyBoard()
                     onQueryListener?.apply {
                         val value = v?.text.toString()
                         onQuery(value)
@@ -202,5 +229,12 @@ class KingSearchView(
             }
 
         })
+    }
+
+    private fun hideKeyBoard() {
+       var im= this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        im?.let {
+            it.hideSoftInputFromWindow(this.windowToken,0)
+        }
     }
 }

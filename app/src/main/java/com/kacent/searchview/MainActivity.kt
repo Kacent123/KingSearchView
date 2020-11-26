@@ -21,5 +21,10 @@ class MainActivity : AppCompatActivity() {
                 Log.e("搜索内容", value)
             }
         })
+        searchView.setOnClearTextListener(object :KingSearchView.OnClearTextListener{
+            override fun onClear() {
+                Log.e("搜索内容", "清洁")
+            }
+        })
     }
 }
