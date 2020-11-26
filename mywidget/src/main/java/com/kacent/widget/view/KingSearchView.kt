@@ -156,6 +156,9 @@ class KingSearchView(
         })
     }
 
+    fun setText(value :String) {
+        editText.setText(value)
+    }
     //设置搜索框背景
     fun setSearchViewBackground(res: Int) {
         editText.setBackgroundResource(res)
