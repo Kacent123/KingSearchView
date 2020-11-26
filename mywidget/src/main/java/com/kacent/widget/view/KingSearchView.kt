@@ -134,6 +134,9 @@ class KingSearchView(
 
         cleanBtn.setOnClickListener {
             editText.setText("")
+            onClearTextListener?.let {
+                it.onClear()
+            }
         }
         editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
