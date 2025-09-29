@@ -1,3 +1,4 @@
+<img width="1864" height="298" alt="截图 2025-09-22 14-06-35" src="https://github.com/user-attachments/assets/4918be0a-0a0b-4909-94c6-ab6dc0f2adf3" />
 # KSearchView
 # 自定义搜索控件
 
